@@ -1,13 +1,24 @@
-# Gemini CLI: a client (kind `client`). `pointman add gemini` installs npm's package on every node that has
-# none, in the node's own folder; a copy a person installed themselves stays theirs. Nodes don't run agents
-# on it yet.
+# Gemini CLI: a client (kind `client`; James, thread 10399 [10869]). `pm add gemini` installs it on every node that
+# has none, from npm with the node's own Node.js; one a person installed stays theirs. Its runs talk ACP, so nodes
+# don't run agents on it until the ACP host lands (AGC-35). [client] v2: AGC-17.
+# Format: docs/dev/extensions.md.
 
 [extension]
 id = "gemini"
 name = "Gemini CLI"
-version = "0.1.1"
+version = "0.2.0"
 publisher = "aurelio"
 summary = "Google's coding agent. Nodes don't run agents on it yet."
 
 [client]
-npm = "@google/gemini-cli"
+npm = "@google/gemini-cli"                  # where its newest version is said
+binaries = ["gemini"]
+protocol = "acp"
+api_keys = ["GEMINI_API_KEY", "GOOGLE_API_KEY", "GOOGLE_GENAI_USE_VERTEXAI"]   # never passed to a run
+
+[client.install]
+from = "npm"                                # the node's own Node.js, never the machine's npm
+package = "@google/gemini-cli"
+
+[client.sign_in]
+how = "gemini"

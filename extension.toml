@@ -6,7 +6,7 @@
 [extension]
 id = "gemini"
 name = "Gemini CLI"
-version = "0.2.0"
+version = "0.2.1"
 publisher = "aurelio"
 summary = "Google's coding agent. Nodes don't run agents on it yet."
 

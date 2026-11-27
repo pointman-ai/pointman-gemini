@@ -1,8 +1,8 @@
 # gemini
 
-A Pointman extension that puts Gemini CLI, Google's coding agent, on your machines. It's a client: nothing
+A Pointman extension that puts Gemini CLI, Google's coding agent, on your machines. It's a harness: nothing
 runs beside it.
-Its manifest says how a node installs it, signs it in and talks to it (`[client]`, v2).
+Its manifest says how a node installs it, signs it in and talks to it (`[harness]`, v2).
 
 Nodes don't run agents on Gemini CLI yet: it installs, but spawning a `gemini` agent is refused, with why. Agents run on Claude Code (`claude`) and Codex CLI (`codex`) for now.
 
@@ -38,24 +38,24 @@ None. Gemini CLI keeps its own settings (`~/.gemini/settings.json`), as it does 
 ## The manifest
 
 ```toml
-[client]
+[harness]
 npm = "@google/gemini-cli"                  # where its newest version is said
 binaries = ["gemini"]
 protocol = "acp"
 api_keys = ["GEMINI_API_KEY", "GOOGLE_API_KEY", "GOOGLE_GENAI_USE_VERTEXAI"]   # never passed to a run
 
-[client.install]
+[harness.install]
 from = "npm"                                # the node's own Node.js, never the machine's npm
 package = "@google/gemini-cli"
 
-[client.sign_in]
+[harness.sign_in]
 how = "gemini"
 ```
 
-`[client]` v2 (Pointman release 20) says what a node needs: its programs, how its runs talk (`protocol`), how a
+`[harness]` v2 (Pointman release 20) says what a node needs: its programs, how its runs talk (`protocol`), how a
 node installs it, how it signs in, how MCP servers reach it, and its vendor's API keys, which never reach a run.
 Gemini CLI is built into the node as code, and this manifest has to say what that code does: a test in Pointman
-checks they agree. A client still stands alone: no `[run]`, behaviour, files, links, rules or settings. The
+checks they agree. A harness still stands alone: no `[run]`, behaviour, files, links, rules or settings. The
 format is in Pointman's docs/dev/extensions.md.
 
 `protocol = "acp"`: nodes run Gemini CLI once their ACP host lands. Until then it installs, and a
